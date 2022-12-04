@@ -1,32 +1,22 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
-import {nanoid} from "nanoid";
+import {Task, TasksProps} from "../types";
 
-type Props = {};
+type Props = TasksProps & {};
 
-type Task = {
-  id: string;
-  label: string;
-  isComplete: boolean;
-}
-
-const ListPage: React.FC<Props> = () => {
-  const [tasks, setTasks] = React.useState<Task[]>([]);
+const ListPage: React.FC<Props> = ( {addTask,tasks, setTasks, updateTaskCompletion}) => {
   const [newTaskLabel, setNewTaskLabel] = React.useState('');
 
   const handleNewTaskLabelChange = (e: ChangeEvent<HTMLInputElement>) => setNewTaskLabel(e.target.value)
 
   const handleNewTaskKeyPress = (e: KeyboardEvent) => {
     if (e.key === 'Enter' && newTaskLabel !== '') {
-      setTasks((tasks) => [...tasks, {id: nanoid(), label: newTaskLabel, isComplete: false}]);
+      addTask({label: newTaskLabel});
       setNewTaskLabel('');
     }
   };
 
-  const handleTaskCompleteChange = (handledTask: Task) => (e: ChangeEvent<HTMLInputElement>) => {
-    setTasks(tasks => tasks.map(task => {
-      if (task.id === handledTask.id) return {...task, isComplete: e.target.checked};
-      return task;
-    }))
+  const handleTaskCompleteChange = (task: Task) => (e: ChangeEvent<HTMLInputElement>) => {
+    updateTaskCompletion(task.id, e.target.checked)
   };
   console.log(tasks);
 
@@ -36,7 +26,6 @@ const ListPage: React.FC<Props> = () => {
   const handleTaskDeleteClick = (handledTask: Task) => () => {
     setTasks(tasks => tasks.filter(task => task.id !== handledTask.id))
   }
-
 
   return (
     <div>
