@@ -1,9 +1,11 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
-import {Task, TasksProps} from "../types";
+import {Task} from "../types";
+import {useTaskStore} from "../hooks/useTaskStore";
 
-type Props = TasksProps & {};
+type Props = {};
 
-const ListPage: React.FC<Props> = ( {addTask,tasks, setTasks, updateTaskCompletion}) => {
+const ListPage: React.FC<Props> = () => {
+  const {addTask, tasks, setTasks, updateTaskCompletion} = useTaskStore()
   const [newTaskLabel, setNewTaskLabel] = React.useState('');
 
   const handleNewTaskLabelChange = (e: ChangeEvent<HTMLInputElement>) => setNewTaskLabel(e.target.value)

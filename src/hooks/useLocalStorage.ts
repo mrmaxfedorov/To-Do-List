@@ -12,5 +12,3 @@ export const useLocalStorage = <TState>(key: string, newState: TState) => {
 
   return [state, setState] as const;
 };
-//
-// export default useLocalStorage();
