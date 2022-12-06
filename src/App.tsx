@@ -1,14 +1,15 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {BrowserRouter, Routes, Route, NavLink} from "react-router-dom";
 import ListPage from "./pages/ListPage";
 import {Task} from "./types";
 import FocusPage from "./pages/FocusPage";
 import {shuffle} from "lodash";
 import {nanoid} from "nanoid";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 function App() {
-  const [tasks, setTasks] = React.useState<Task[]>([]);
-  const [focusedTaskId, setFocusedTaskId] = React.useState<string | undefined>(undefined);
+  const [tasks, setTasks] = useLocalStorage<Task[]>('tasks', []);
+  const [focusedTaskId, setFocusedTaskId] = useState<string | undefined>(undefined);
 
   const addTask = (task: Pick<Task, 'label'>) => {
     const id = nanoid();
