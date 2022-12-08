@@ -47,5 +47,5 @@ export const useTaskStore = () => {
     updateTaskCompletion};
 
   return api;
-}
+};
 

@@ -1,5 +1,25 @@
 import React from "react";
 import {useTaskStore} from "../hooks/useTaskStore";
+import styled from "styled-components";
+import TextButton from "../components/TextButton";
+import Button from "../components/Button";
+import Spacer from "../contexts/Spacer";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+`;
+
+const Task = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  padding-bottom: 45px;
+`;
 
 type Props = {};
 
@@ -12,11 +32,12 @@ const FocusPage: React.FC<Props> = () => {
   };
 
   return task ? (
-    <div>
-      <div>{task.label}</div>
-      <button onClick={handleMarkCompleted}>mark completed</button>
-      <button onClick={shuffleFocusedTask}>nope</button>
-    </div>
+    <Container>
+      <Task>{task.label}</Task>
+      <Button onClick={handleMarkCompleted}>Mark completed</Button>
+      <Spacer height={45}/>
+      <TextButton onClick={shuffleFocusedTask}>nope</TextButton>
+    </Container>
   ) : (
     <div>No incomplete tasks.</div>
   );

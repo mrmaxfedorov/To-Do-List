@@ -1,6 +1,54 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
 import {Task} from "../types";
 import {useTaskStore} from "../hooks/useTaskStore";
+import styled from "styled-components";
+import TextButton from "../components/TextButton";
+import Spacer from "../contexts/Spacer";
+import DeleteIcon from "../icons/DeleteIcon";
+import IconButton from "../components/IconButton";
+import Checkbox from "../components/Checkbox";
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-self: center;
+  width: 460px;
+`;
+
+const List = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 45px 24px;
+`;
+
+const ListItem = styled.label`
+  align-items: center;
+  display: flex;
+  padding: 4px 0;
+  font-size: 18px;
+  cursor: pointer;
+`;
+
+const DeleteButton = styled(IconButton)`
+  visibility: hidden;
+  cursor: pointer;
+
+  ${ListItem}:hover & {
+     visibility: visible;
+   } 
+`;
+
+const Input = styled.input`
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  border-radius: 15px;
+  border: none;
+  padding: 20px 24px;
+  outline: none;
+`;
 
 type Props = {};
 
@@ -30,26 +78,33 @@ const ListPage: React.FC<Props> = () => {
   }
 
   return (
-    <div>
-      <div>
-        <ul>
+    <Container>
+      <List>
           {tasks.map(task => (
-            <li key={task.id}>
-              <input type="checkbox" checked={task.isComplete} onChange={handleTaskCompleteChange(task)}/>{task.label}
-              <button onClick={handleTaskDeleteClick(task)}>delete</button>
-            </li>
+              <ListItem key={task.id}>
+                <Checkbox
+                  type="checkbox"
+                  checked={task.isComplete}
+                  onChange={handleTaskCompleteChange(task)}
+                />
+                <Spacer width={24}/>
+                {task.label}
+                <Spacer flex={1}/>
+                <DeleteButton onClick={handleTaskDeleteClick(task)}><DeleteIcon/></DeleteButton>
+              </ListItem>
             ))}
-        </ul>
-      </div>
-      List view
-      <input
+      </List>
+      <Spacer height={30}/>
+      <Input
+        placeholder="Add a task"
         value={newTaskLabel}
         onChange={handleNewTaskLabelChange}
-        onKeyPress={handleNewTaskKeyPress}></input>
-      <button onClick={handleClearClick}>
+        onKeyPress={handleNewTaskKeyPress}></Input>
+      <Spacer height={45}/>
+      <TextButton onClick={handleClearClick} style={{alignSelf: 'center'}}>
         Clear completed
-      </button>
-    </div>
+      </TextButton>
+    </Container>
   )
 }
 
