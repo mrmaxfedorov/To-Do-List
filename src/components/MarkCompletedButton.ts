@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Button = styled.button`
+const MarkCompletedButton = styled.button`
   border: none;
   border-radius: 15px;
   color: #000;
@@ -11,4 +11,4 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-export default Button;
+export default MarkCompletedButton;

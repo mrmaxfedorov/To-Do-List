@@ -1,10 +1,10 @@
 import React from 'react';
-import {BrowserRouter, Routes, Route, NavLink} from "react-router-dom";
+import {HashRouter, Routes, Route, NavLink} from "react-router-dom";
 import ListPage from "./pages/ListPage";
 import {Task} from "./types";
 import FocusPage from "./pages/FocusPage";
-import { useLocalStorage } from "./hooks/useLocalStorage";
-import { TaskContext} from "./contexts/taskStore";
+import {useLocalStorage} from "./hooks/useLocalStorage";
+import {TaskContext} from "./contexts/taskStore";
 import styled from "styled-components";
 import {GlobalStyle} from "./styles";
 
@@ -51,7 +51,7 @@ function App() {
   return (
     <>
       <GlobalStyle/>
-      <BrowserRouter>
+      <HashRouter>
         <TaskContext.Provider value={[tasks, setTasks]}>
           <Layout>
             <Nav>
@@ -64,7 +64,7 @@ function App() {
             </Routes>
           </Layout>
         </TaskContext.Provider>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 }
